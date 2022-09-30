@@ -7,6 +7,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.launchcode.techjobs.oo.*;
 
+import javax.naming.Name;
+
 import static org.junit.Assert.*;
 
 /**
@@ -44,7 +46,7 @@ public class JobTest {
         assertEquals(job3.getPositionType().getValue(), "Quality control");
         assertEquals(job3.getCoreCompetency().getValue(), "Persistence");
 
-
+        assertTrue(job3.getName() == "Product tester");
         assertTrue(job3.getEmployer() instanceof Employer);
         assertTrue(job3.getLocation() instanceof Location);
         assertTrue(job3.getPositionType() instanceof PositionType);
@@ -55,5 +57,39 @@ public class JobTest {
     @Test
     public void testJobsForEquality(){
         assertFalse(job4.equals(job5));
+    }
+
+    @Test
+    public void testToStringStartsAndEndsWithNewLine(){
+        String firstLine = job4.toString().substring(0,0);
+        String lastLine = job4.toString().substring
+                (job4.toString().length()-2, job4.toString().length()-2);
+        assertEquals(firstLine, lastLine);
+    }
+
+    @Test
+    public void testToStringContainsCorrectLabelsAndData(){
+        String output =
+                "\nID: " + job3.getId() +
+                "\nName: " + job3.getName() +
+                "\nEmployer: " + job3.getEmployer() +
+                "\nLocation: " + job3.getLocation() +
+                "\nPosition Type: " + job3.getPositionType() +
+                "\nCore Competency: " + job3.getCoreCompetency();
+        assertEquals(output, job3.toString());
+    }
+
+    @Test
+    public void testToStringHandlesEmptyField(){
+        job3.getEmployer().setValue("");
+        job3.getLocation().setValue("");
+
+        String output = "\nID: " + job3.getId() +
+                        "\nName: " + job3.getName() +
+                        "\nEmployer: Data not available" +
+                        "\nLocation: Data not available"  +
+                        "\nPosition Type: " + job3.getPositionType() +
+                        "\nCore Competency: " + job3.getCoreCompetency();
+        assertEquals(output, job3.toString());
     }
 }
