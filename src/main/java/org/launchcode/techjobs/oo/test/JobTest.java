@@ -1,5 +1,6 @@
 package org.launchcode.techjobs.oo.test;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,7 +43,14 @@ public class JobTest {
         assertEquals(job3.getLocation().getValue(), "Desert");
         assertEquals(job3.getPositionType().getValue(), "Quality control");
         assertEquals(job3.getCoreCompetency().getValue(), "Persistence");
+
+
+        assertTrue(job3.getEmployer() instanceof Employer);
+        assertTrue(job3.getLocation() instanceof Location);
+        assertTrue(job3.getPositionType() instanceof PositionType);
+        assertTrue(job3.getCoreCompetency() instanceof CoreCompetency);
     }
+
 
     @Test
     public void testJobsForEquality(){
